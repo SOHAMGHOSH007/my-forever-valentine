@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Forever Valentine ❤️</title>
+
+  <!-- ====== STYLE ====== -->
+  <style>
+    *{
+      margin:0; padding:0; box-sizing:border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body{
+      background: linear-gradient(180deg, #fff0f5, #ffe6f0);
+      overflow-x:hidden;
+      color:#ff4d88;
+      text-align:center;
+    }
+
+    .page{
+      min-height:100vh;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      padding:20px;
+    }
+
+    .active{ display:flex; }
+
+    h1{
+      font-size:2.2rem;
+      margin-bottom:20px;
+    }
+
+    p{
+      font-size:1.1rem;
+      max-width:700px;
+      margin:15px auto;
+    }
+
+    button{
+      padding:12px 30px;
+      font-size:1.1rem;
+      border:none;
+      border-radius:30px;
+      cursor:pointer;
+      margin:10px;
+      transition:0.3s;
+    }
+
+    .yes{
+      background:#ff4d88;
+      color:white;
+    }
+
+    .no{
+      background:#ffd6e6;
+      color:#ff4d88;
+      position:relative;
+    }
+
+    input{
+      padding:12px;
+      border-radius:25px;
+      border:2px solid #ff99bb;
+      outline:none;
+      text-align:center;
+      font-size:1rem;
+      margin-top:10px;
+    }
+
+    img{
+      width:250px;
+      border-radius:20px;
+      margin:20px 0;
+      box-shadow:0 10px 25px rgba(255,77,136,0.3);
+    }
+
+    /* ====== HEART FLOAT ====== */
+    .heart{
+      position:fixed;
+      bottom:-20px;
+      color:#ff4d88;
+      font-size:20px;
+      animation: floatUp 6s linear infinite;
+    }
+
+    @keyframes floatUp{
+      from{ transform:translateY(0); opacity:1; }
+      to{ transform:translateY(-110vh); opacity:0; }
+    }
+
+    /* ====== TYPING ANIMATION ====== */
+    .typing{
+      border-right:2px solid #ff4d88;
+      white-space:nowrap;
+      overflow:hidden;
+      animation: blink 0.7s infinite;
+    }
+
+    @keyframes blink{
+      50%{ border-color:transparent; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ====== PAGE 1 : PROPOSAL ====== -->
+<div class="page active" id="page1">
+  <h1>Will you be my forever wala Valentine, pagliih? 🥹❤️</h1>
+  <div>
+    <button class="yes" onclick="goToNamePage()">YES</button>
+    <button class="no" onmouseover="hideNo(this)">NO</button>
+  </div>
+</div>
+
+<!-- ====== PAGE 2 : NAME CHECK ====== -->
+<div class="page" id="page2">
+  <h1>Enter your name 💕</h1>
+  <input type="text" id="nameInput" placeholder="Your name" />
+  <button class="yes" onclick="checkName()">Continue</button>
+</div>
+
+<!-- ====== PAGE 3 : WRONG NAME ====== -->
+<div class="page" id="pageWrong">
+  <h1>SORRY 🥺</h1>
+  <p>My love is only for my sweet wiffuu ❤️</p>
+</div>
+
+<!-- ====== PAGE 4 : LOVE STORY ====== -->
+<div class="page" id="pageLove">
+
+  <audio id="bgMusic" autoplay loop>
+    <source src="chaar-kadam.mp3" type="audio/mpeg">
+  </audio>
+
+  <h1>Your Gadhuu ❤️</h1>
+
+  <img src="pic1.jpg" />
+  <p class="typing" id="line1"></p>
+
+  <img src="pic2.jpg" />
+  <p class="typing" id="line2"></p>
+
+  <img src="pic3.jpg" />
+  <p class="typing" id="line3"></p>
+
+  <p class="typing" id="line4"></p>
+  <p class="typing" id="line5"></p>
+  <p class="typing" id="line6"></p>
+
+</div>
+
+<!-- ====== SCRIPT ====== -->
+<script>
+  function hideNo(btn){
+    btn.style.position='absolute';
+    btn.style.top = Math.random()*80 + '%';
+    btn.style.left = Math.random()*80 + '%';
+  }
+
+  function goToNamePage(){
+    switchPage('page1','page2');
+  }
+
+  function checkName(){
+    let name = document.getElementById('nameInput').value.trim();
+    if(name.toLowerCase() === 'juniii'){
+      switchPage('page2','pageLove');
+      startTyping();
+      setInterval(createHeart,300);
+    }else{
+      switchPage('page2','pageWrong');
+    }
+  }
+
+  function switchPage(hide,show){
+    document.getElementById(hide).classList.remove('active');
+    document.getElementById(show).classList.add('active');
+  }
+
+  function createHeart(){
+    const heart = document.createElement('div');
+    heart.className='heart';
+    heart.innerHTML='❤️';
+    heart.style.left = Math.random()*100 + 'vw';
+    heart.style.fontSize = Math.random()*20 + 15 + 'px';
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),6000);
+  }
+
+  const lines = [
+    "Myy babyy 💕",
+    "Between every heartbeat, there’s only you... loving you feels like coming home, u are myy peace junii 😌❤️🫂",
+    "In a world full of chaos and noise, I’m choosing you today and always myy love 💖",
+    "From strangers to soulmates, every moment led me to you 🥹❤️🫂",
+    "Will u hold my hand and walk with me forever?",
+    "BE MY LAST. I promise to hold you in my arms, caring gently — BE MY VALENTINO FOREVER ♾️❤️🫂🥹 I LOVEEE YOUUUU"
+  ];
+
+  function typeText(el, text, speed=50){
+    let i=0;
+    const interval=setInterval(()=>{
+      el.textContent += text.charAt(i);
+      i++;
+      if(i===text.length) clearInterval(interval);
+    },speed);
+  }
+
+  function startTyping(){
+    typeText(document.getElementById('line1'), lines[0]);
+    setTimeout(()=>typeText(document.getElementById('line2'), lines[1]),2000);
+    setTimeout(()=>typeText(document.getElementById('line3'), lines[2]),4500);
+    setTimeout(()=>typeText(document.getElementById('line4'), lines[3]),7000);
+    setTimeout(()=>typeText(document.getElementById('line5'), lines[4]),9500);
+    setTimeout(()=>typeText(document.getElementById('line6'), lines[5]),11500);
+  }
+</script>
+
+</body>
+</html>
