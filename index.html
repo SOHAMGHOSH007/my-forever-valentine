@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My Forever Valentine ❤️</title>
 
-  <!-- ====== STYLE ====== -->
   <style>
     *{
       margin:0; padding:0; box-sizing:border-box;
@@ -79,19 +78,20 @@
       box-shadow:0 10px 25px rgba(255,77,136,0.3);
     }
 
+    /* SHAKE */
     @keyframes shakeFast {
-  0% { transform: translateX(0); }
-  25% { transform: translateX(-12px); }
-  50% { transform: translateX(12px); }
-  75% { transform: translateX(-12px); }
-  100% { transform: translateX(0); }
-}
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-12px); }
+      50% { transform: translateX(12px); }
+      75% { transform: translateX(-12px); }
+      100% { transform: translateX(0); }
+    }
 
-.shake {
-  animation: shakeFast 0.15s infinite;
-}
+    .shake {
+      animation: shakeFast 0.15s infinite;
+    }
 
-    /* ====== HEART FLOAT ====== */
+    /* HEART FLOAT */
     .heart{
       position:fixed;
       bottom:-20px;
@@ -105,7 +105,7 @@
       to{ transform:translateY(-110vh); opacity:0; }
     }
 
-    /* ====== TYPING ANIMATION ====== */
+    /* TYPING */
     .typing{
       border-right:2px solid #ff4d88;
       white-space:nowrap;
@@ -120,7 +120,7 @@
 </head>
 <body>
 
-<!-- ====== PAGE 1 : PROPOSAL ====== -->
+<!-- PAGE 1 -->
 <div class="page active" id="page1">
   <h1>Will you be my forever wala Valentine, Pagliiihh? 🥹❤️</h1>
   <div>
@@ -129,23 +129,23 @@
   </div>
 </div>
 
-<!-- ====== PAGE 2 : NAME CHECK ====== -->
+<!-- PAGE 2 -->
 <div class="page" id="page2">
   <h1>Enter your name 💕</h1>
   <input type="text" id="nameInput" placeholder="Your name" />
   <button class="yes" onclick="checkName()">Continue</button>
 </div>
 
-<!-- ====== PAGE 3 : WRONG NAME ====== -->
+<!-- PAGE 3 -->
 <div class="page" id="pageWrong">
   <h1>SORRY 🥺</h1>
   <p>My love is only for my sweet wiffuu ❤️</p>
 </div>
 
-<!-- ====== PAGE 4 : LOVE STORY ====== -->
+<!-- PAGE 4 -->
 <div class="page" id="pageLove">
 
-  <audio id="bgMusic" autoplay loop>
+  <audio id="bgMusic" loop>
     <source src="chaar-kadam.mp3" type="audio/mpeg">
   </audio>
 
@@ -163,30 +163,28 @@
   <p class="typing" id="line4"></p>
   <p class="typing" id="line5"></p>
   <p class="typing" id="line6"></p>
+  <p class="typing" id="line7"></p>
+  <p class="typing" id="line8"></p>
 
   <button class="yes" onclick="goToPage5()">Continue ➜</button>
-
 </div>
 
-<!-- ====== PAGE 5 : QUESTION ====== -->
+<!-- PAGE 5 -->
 <div class="page" id="page5">
   <h1>Will U be my VALENTINO ❤️?</h1>
-
   <div>
     <button class="yes" onclick="goToPage6()">YES</button>
     <button class="no" onclick="shakeScreen()">NO</button>
   </div>
 </div>
 
-<!-- ====== PAGE 6 : FINAL ====== -->
+<!-- PAGE 6 -->
 <div class="page" id="page6">
   <div style="font-size:9rem;">💐</div>
   <h1>I LOVE YOUU SO SO MUCH</h1>
   <h1>MY UNIVERSE</h1>
 </div>
 
-
-<!-- ====== SCRIPT ====== -->
 <script>
   function hideNo(btn){
     btn.style.position='absolute';
@@ -204,29 +202,29 @@
       switchPage('page2','pageLove');
       startTyping();
       setInterval(createHeart,300);
+      document.getElementById("bgMusic").play();
     }else{
       switchPage('page2','pageWrong');
     }
   }
 
   function goToPage5(){
-  switchPage('pageLove','page5');
-}
+    switchPage('pageLove','page5');
+  }
 
-function goToPage6(){
-  switchPage('page5','page6');
-}
+  function goToPage6(){
+    switchPage('page5','page6');
+  }
 
-function shakeScreen(){
-  document.body.classList.add('shake');
-  setTimeout(()=>{
-    document.body.classList.remove('shake');
-  },800);
-}
+  function shakeScreen(){
+    document.body.classList.add('shake');
+    setTimeout(()=>{ document.body.classList.remove('shake'); },800);
+  }
 
   function switchPage(hide,show){
     document.getElementById(hide).classList.remove('active');
     document.getElementById(show).classList.add('active');
+    window.scrollTo(0,0);
   }
 
   function createHeart(){
@@ -271,22 +269,6 @@ function shakeScreen(){
   }
 </script>
 
-
-<audio id="bgMusic" loop>
-  <source src="chaar-kadam.mp3" type="audio/mpeg">
-</audio>
-
-<button onclick="playMusic()" style="display:none" id="playBtn"></button>
-
-<script>
-  function playMusic() {
-    document.getElementById("bgMusic").play();
-  }
-
-  document.addEventListener("click", function () {
-    document.getElementById("bgMusic").play();
-  }, { once: true });
-</script>
-  
 </body>
 </html>
+
