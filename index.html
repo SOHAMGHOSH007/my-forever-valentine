@@ -79,6 +79,18 @@
       box-shadow:0 10px 25px rgba(255,77,136,0.3);
     }
 
+    @keyframes shakeFast {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-12px); }
+  50% { transform: translateX(12px); }
+  75% { transform: translateX(-12px); }
+  100% { transform: translateX(0); }
+}
+
+.shake {
+  animation: shakeFast 0.15s infinite;
+}
+
     /* ====== HEART FLOAT ====== */
     .heart{
       position:fixed;
@@ -152,7 +164,27 @@
   <p class="typing" id="line5"></p>
   <p class="typing" id="line6"></p>
 
+  <button class="yes" onclick="goToPage5()">Continue ➜</button>
+
 </div>
+
+<!-- ====== PAGE 5 : QUESTION ====== -->
+<div class="page" id="page5">
+  <h1>Will U be my VALENTINO ❤️?</h1>
+
+  <div>
+    <button class="yes" onclick="goToPage6()">YES</button>
+    <button class="no" onclick="shakeScreen()">NO</button>
+  </div>
+</div>
+
+<!-- ====== PAGE 6 : FINAL ====== -->
+<div class="page" id="page6">
+  <div style="font-size:9rem;">💐</div>
+  <h1>I LOVE YOUU SO SO MUCH</h1>
+  <h1>MY UNIVERSE</h1>
+</div>
+
 
 <!-- ====== SCRIPT ====== -->
 <script>
@@ -176,6 +208,21 @@
       switchPage('page2','pageWrong');
     }
   }
+
+  function goToPage5(){
+  switchPage('pageLove','page5');
+}
+
+function goToPage6(){
+  switchPage('page5','page6');
+}
+
+function shakeScreen(){
+  document.body.classList.add('shake');
+  setTimeout(()=>{
+    document.body.classList.remove('shake');
+  },800);
+}
 
   function switchPage(hide,show){
     document.getElementById(hide).classList.remove('active');
@@ -224,5 +271,22 @@
   }
 </script>
 
+
+<audio id="bgMusic" loop>
+  <source src="chaar-kadam.mp3" type="audio/mpeg">
+</audio>
+
+<button onclick="playMusic()" style="display:none" id="playBtn"></button>
+
+<script>
+  function playMusic() {
+    document.getElementById("bgMusic").play();
+  }
+
+  document.addEventListener("click", function () {
+    document.getElementById("bgMusic").play();
+  }, { once: true });
+</script>
+  
 </body>
 </html>
